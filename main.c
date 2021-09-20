@@ -91,17 +91,36 @@ void random_init(int v [], int n)
 
 void test1()
 {
-    int v[1]
+    int i;
+
+    int w[6][5] = {
+            {-9,  2, -5, -4,  6},
+            { 4,  0,  9,  2,  5},
+            {-2, -1, -9, -7, -1},
+            { 9, -2,  1, -7, -8},
+            {15, -2, -5, -4, 16},
+            { 7, -5,  6,  7, -7}
+    };
+
+    printf("test 1\n");
+    printf("%15s%15s\n", "sequence", "result");
+
+    for ( i = 0; i < 6; i++ )
+    {
+        print_array(w[i], 5);
+        printf("%15d\n", maxSubSum1(w[i], 5));
+    }
+    printf("\n\n");
 }
 
 void test2()
 {
-    int max = 5;
+    int max = 9;
     int i, a, b;
     int v[max];
-    printf("test\n");
+    printf("test 2\n");
     printf("%33s%15s%15s\n", "", "maxSubSum1", "maxSubSum2");
-    for (i=0; i<max+1; i++) {
+    for (i = 0; i < max + 1; i++) {
         random_init(v, max);
         print_array(v, max);
         a = maxSubSum1(v, max);
@@ -113,15 +132,8 @@ void test2()
 int main()
 {
     init_seed();
-    //test1();
+    test1();
     test2();
-
-    int a, b;
-
-    int v[5] = { -2, -4, 0, 0, 5 };
-    a = maxSubSum1(v, 5);
-    b = maxSubSum2(v, 5);
-    printf("%15d%15d\n", a, b);
 
     return 0;
 }
