@@ -12,8 +12,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
+#include <stdbool.h>
+#include <math.h>
 
-#define MAX 500
+//#define MAX 1000
 #define K 100
 
 /** Algorithms */
@@ -102,16 +104,51 @@ void random_init(int v [], int n)
 }*/
 
 
-int main()
+double measure_time1(int MAX)
 {
     int v[MAX], i;
-    double ta, tb, t, t1, t2;
     int sum;
+    double ta, tb, t, t1, t2;
+
+        init_seed();
+        random_init(v,MAX);
+        ta = microseconds();
+        sum = maxSubSum1(v,MAX);
+        //sum = maxSubSum2(v,MAX);
+        tb = microseconds();
+        t = tb - ta;
+
+        if(t < 500){
+            ta = microseconds();
+            for(i =0; i < K; i++){
+                init_seed();
+                random_init(v,MAX);
+                sum = maxSubSum1(v,MAX);
+                //sum = maxSubSum2(v,MAX);
+            }
+            tb = microseconds();
+            t1 = tb - ta; //MAS DE 500
+            ta = microseconds();
+            for(i =0; i < K; i++){
+                init_seed();
+                random_init(v,MAX);
+            }
+            tb = microseconds();
+            t2 = tb - ta;
+            t = (t1 -t2) / K;
+    }
+        return t;
+}
+double measure_time2(int MAX)
+{
+    int v[MAX], i;
+    int sum;
+    double ta, tb, t, t1, t2;
+
     init_seed();
     random_init(v,MAX);
     ta = microseconds();
-    sum = maxSubSum1(v,MAX);
-    //sum = maxSubSum2(v,MAX);
+    sum = maxSubSum2(v,MAX);
     tb = microseconds();
     t = tb - ta;
 
@@ -120,8 +157,7 @@ int main()
         for(i =0; i < K; i++){
             init_seed();
             random_init(v,MAX);
-            sum = maxSubSum1(v,MAX);
-            //sum = maxSubSum2(v,MAX);
+            sum = maxSubSum2(v,MAX);
         }
         tb = microseconds();
         t1 = tb - ta; //MAS DE 500
@@ -134,8 +170,39 @@ int main()
         t2 = tb - ta;
         t = (t1 -t2) / K;
     }
-
-    printf("[ %lf ]",t);
-    return 0;
+    return t;
 }
 
+
+int main(){
+
+
+    int n=500, i;
+    double t;
+
+    /*
+    printf("MaxSubSum 1\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+
+    for (i = 0; i<=6;i++){
+        t = measure_time1(n);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }*/
+
+    n=500;
+    printf("\nMaxSubSum 2\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+
+    for (i = 0; i<=6;i++){
+        t = measure_time2(n);
+        //printf("%lf\n",measure_time2(n));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    //printf("%lf\n",measure_time1(500));
+    //printf("%lf",measure_time2(36000));
+
+    return 0;
+}
