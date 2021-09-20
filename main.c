@@ -1,9 +1,9 @@
 /*
  * TITLE: MAXIMUM SUBSEQUENCE SUM
  * SUBTITLE: Practical 1
- * AUTHOR 1: Martin do Rio Rico           LOGIN 1: martin.dorio
- * AUTHOR 2: Rodrigo Naranjo Gonzalez     LOGIN 2: r.naranjo
- * AUTHOR 3: Guillermo Fernandez Sanchez  LOGIN 3: guillermo.fernandezs
+ * AUTHOR 1: Martin do Rio Rico LOGIN 1: martin.dorio
+ * AUTHOR 2: Rodrigo Naranjo Gonzalez LOGIN 2: r.naranjo
+ * AUTHOR 3:  LOGIN 3:
  * GROUP: 6.1
  * DATE: 25 / 09 / 21
  */
@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
+
+#define MAX 500
+#define K 100
 
 /** Algorithms */
 
@@ -50,19 +53,7 @@ int maxSubSum2(int v[], int n) // O(n)
     return maxSum;
 }
 
-void print_array(int v[], int n)
-{
-    printf("[ ");
-    for (int i = 0; i < n; i++)
-    {
-        printf("%d ", v[i]);
-    }
-    printf("]");
-}
-
-/** Figure 3: Obtaining the system time */
-
-/* obtains the system time in microseconds */
+//Obtains the system time in microseconds
 double microseconds()
 {
     struct timeval t;
@@ -71,15 +62,13 @@ double microseconds()
     return (t.tv_usec + t.tv_sec * 1000000.0);
 }
 
-/** Figure 1: Initialization of an array with pseudo-random integers in the range [−n,..., +n] */
-
-/* set the seed of a new sequence of pseudo-random integers */
+// Set the seed of a new sequence of pseudo-random integers
 void init_seed()
 {
     srand(time(NULL));
 }
 
-/* generate pseudo-random numbers between -n and +n */
+// Generate pseudo-random numbers between -n and +n
 void random_init(int v [], int n)
 {
     int i, m=2*n+1;
@@ -87,53 +76,66 @@ void random_init(int v [], int n)
         v[i] = (rand() % m) - n;
 }
 
-/** Tests */
 
-void test1()
+/*void print_array(int v[], int n)
 {
-    int i;
-
-    int w[6][5] = {
-            {-9,  2, -5, -4,  6},
-            { 4,  0,  9,  2,  5},
-            {-2, -1, -9, -7, -1},
-            { 9, -2,  1, -7, -8},
-            {15, -2, -5, -4, 16},
-            { 7, -5,  6,  7, -7}
-    };
-
-    printf("test 1\n");
-    printf("%15s%15s\n", "sequence", "result");
-
-    for ( i = 0; i < 6; i++ )
+    printf("[ ");
+    for (int i = 0; i < n; i++)
     {
-        print_array(w[i], 5);
-        printf("%15d\n", maxSubSum1(w[i], 5));
+        printf("%d ", v[i]);
     }
-    printf("\n\n");
-}
-
-void test2()
+    printf("]");
+}*/
+/*void print_program()
 {
-    int max = 9;
     int i, a, b;
-    int v[max];
+    int v[MAX];
     printf("test 2\n");
     printf("%33s%15s%15s\n", "", "maxSubSum1", "maxSubSum2");
     for (i = 0; i < max + 1; i++) {
-        random_init(v, max);
-        print_array(v, max);
-        a = maxSubSum1(v, max);
-        b = maxSubSum2(v, max);
+        random_init(v, MAX);
+        print_array(v, MAX);
+        a = maxSubSum1(v, MAX);
+        b = maxSubSum2(v, MAX);
         printf("%15d%15d\n", a, b);
     }
-}
+}*/
+
 
 int main()
 {
+    int v[MAX], i;
+    double ta, tb, t, t1, t2;
+    int sum;
     init_seed();
-    test1();
-    test2();
+    random_init(v,MAX);
+    ta = microseconds();
+    sum = maxSubSum1(v,MAX);
+    //sum = maxSubSum2(v,MAX);
+    tb = microseconds();
+    t = tb - ta;
 
+    if(t < 500){
+        ta = microseconds();
+        for(i =0; i < K; i++){
+            init_seed();
+            random_init(v,MAX);
+            sum = maxSubSum1(v,MAX);
+            //sum = maxSubSum2(v,MAX);
+        }
+        tb = microseconds();
+        t1 = tb - ta; //MAS DE 500
+        ta = microseconds();
+        for(i =0; i < K; i++){
+            init_seed();
+            random_init(v,MAX);
+        }
+        tb = microseconds();
+        t2 = tb - ta;
+        t = (t1 -t2) / K;
+    }
+
+    printf("[ %lf ]",t);
     return 0;
 }
+
