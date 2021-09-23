@@ -1,11 +1,11 @@
 /*
- * TITLE: MAXIMUM SUBSEQUENCE SUM
+ *    TITLE: MAXIMUM SUBSEQUENCE SUM
  * SUBTITLE: Practical 1
- * AUTHOR 1: Martin do Rio Rico LOGIN 1: martin.dorio
- * AUTHOR 2: Rodrigo Naranjo Gonzalez LOGIN 2: r.naranjo
- * AUTHOR 3:  LOGIN 3:
- * GROUP: 6.1
- * DATE: 25 / 09 / 21
+ * AUTHOR 1: Martin do Rio Rico          LOGIN 1: martin.dorio
+ * AUTHOR 2: Rodrigo Naranjo Gonzalez    LOGIN 2: r.naranjo
+ * AUTHOR 3: Guillermo Fernandez Sanchez LOGIN 3: guillermo.fernandezs
+ *    GROUP: 6.1
+ *     DATE: 25 / 09 / 21
  */
 
 #include <stdio.h>
