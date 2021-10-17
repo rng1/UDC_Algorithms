@@ -148,13 +148,20 @@ void generateDescending(int v[], int n){
     }
 }
 
-double time_selSortRand(int MAX)
+double time_selSort(int MAX, int arrayType)
 {
+    //ArrayType: 1:random, 2:ascending, 3:descending
     int v[MAX], i;
 
     double ta, tb, t, t1, t2;
 
-    random_init(v,MAX);
+    switch (arrayType) {
+        case 1: random_init(v,MAX); break;
+        case 2: generateAscending(v,MAX); break;
+        case 3: generateDescending(v,MAX); break;
+        default: break;
+    }
+
     ta = microseconds();
 
     //maxSubSum1(v,MAX);
@@ -166,7 +173,14 @@ double time_selSortRand(int MAX)
     if(t < 500){
         ta = microseconds();
         for(i =0; i < K; i++){
-            random_init(v,MAX);
+
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generateAscending(v,MAX); break;
+                case 3: generateDescending(v,MAX); break;
+                default: break;
+            }
+
 
             //maxSubSum1(v,MAX);
             sel_sort(v,MAX);
@@ -176,9 +190,17 @@ double time_selSortRand(int MAX)
         t1 = tb - ta; //more than 500
         ta = microseconds();
 
-
+        //esto que cojones hace
         for(i =0; i < K; i++){
-            random_init(v,MAX);
+
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generateAscending(v,MAX); break;
+                case 3: generateDescending(v,MAX); break;
+                default: break;
+            }
+
+
         }
 
         tb = microseconds();
@@ -190,16 +212,23 @@ double time_selSortRand(int MAX)
 
 
 
-double measure_time_ShellSort(int MAX)
+double time_ShellSort(int MAX, int arrayType)
 {
     int v[MAX], i;
     double ta, tb, t, t1, t2;
 
-    random_init(v,MAX);
+    switch (arrayType) {
+        case 1: random_init(v,MAX); break;
+        case 2: generateAscending(v,MAX); break;
+        case 3: generateDescending(v,MAX); break;
+        default: break;
+    }
+
+
     ta = microseconds();
 
     //maxSubSum2(v,MAX);
-    //poner shell_sort(v,MAX);
+    shell_sort(v,MAX);
 
     tb = microseconds();
     t = tb - ta;
@@ -208,16 +237,27 @@ double measure_time_ShellSort(int MAX)
         ta = microseconds();
         for(i =0; i < K; i++){
 
-            random_init(v,MAX);
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generateAscending(v,MAX); break;
+                case 3: generateDescending(v,MAX); break;
+                default: break;
+            }
+
             //maxSubSum2(v,MAX);
-            //poner shell_sort(v,MAX);
+            shell_sort(v,MAX);
         }
         tb = microseconds();
         t1 = tb - ta; //more than 500
         ta = microseconds();
 
         for(i =0; i < K; i++){
-            random_init(v,MAX);
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generateAscending(v,MAX); break;
+                case 3: generateDescending(v,MAX); break;
+                default: break;
+            }
         }
 
         tb = microseconds();
@@ -247,18 +287,64 @@ int main() {
     printf("\n\nSelection sort random:\n");
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
-        t = time_selSortRand(n);
+        t = time_selSort(n,1);
         printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
         n=n*2;
     }
 
-    //sel sort ascending
-    //sel sort descending
+    n=500;
+    printf("\n\nSelection sort ascending:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_selSort(n,2);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nSelection sort descendding:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_selSort(n,3);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+
 
 
     //shell sort random (funcion ya creada mas o menos)
     //shell sort ascending
     //shell sort descending
+
+    n=500;
+    printf("\n\n\nShell sort random:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_ShellSort(n,1);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nShell sort ascending:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_ShellSort(n,2);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nShell sort descending:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_ShellSort(n,3);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+
 
     // agrupar shell sort y sel sort en funciones
 
@@ -267,4 +353,3 @@ int main() {
 
     return 0;
 }
-
