@@ -294,46 +294,32 @@ int main() {
         n=n*2;
     }
 
-
-
-
-    //shell sort random (funcion ya creada mas o menos)
-    //shell sort ascending
-    //shell sort descending
-
     n=500;
     printf("\n\n\nShell sort random:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
     for (i = 0; i<=6;i++){
         t = time_ShellSort(n,1);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nShell sort ascending:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
     for (i = 0; i<=6;i++){
         t = time_ShellSort(n,2);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nShell sort descending:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
     for (i = 0; i<=6;i++){
         t = time_ShellSort(n,3);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
         n=n*2;
     }
-
-
-
-    // agrupar shell sort y sel sort en funciones
-
-
-
 
     return 0;
 }
