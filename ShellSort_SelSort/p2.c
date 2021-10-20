@@ -7,7 +7,7 @@
 
 #define K 100
 
-
+//SORTING FUNCTIONS
 void shell_sort(int v[], int n)
 {
     int increment = n;
@@ -17,7 +17,7 @@ void shell_sort(int v[], int n)
     do
     {
         increment = increment / 2;
-        for (i = increment + 1; i < n; i++){
+        for (i = increment; i < n; i++){
             aux = v[i];
             j = i;
             stay = true;
@@ -57,8 +57,7 @@ void sel_sort(int v[], int n) {
     }
 }
 
-
-
+//AUXILIARY FUNCTIONS
 void init_seed()
 {
     srand(time(NULL));
@@ -81,7 +80,29 @@ void print_array(int v[], int n)
     printf("\n");
 }
 
+//Obtains the system time in microseconds
+double microseconds()
+{
+    struct timeval t;
+    if (gettimeofday(&t, NULL) < 0 )
+        return 0.0;
+    return (t.tv_usec + t.tv_sec * 1000000.0);
+}
 
+void generateAscending(int v[], int n){
+    for (int i = 0; i < n; ++i) {
+        v[i]=i;
+    }
+}
+
+void generateDescending(int v[], int n){
+    n-=1;
+    for (int i = 0; i <= n; ++i) {
+        v[i]=n-i;
+    }
+}
+
+//TESTING FUNCTIONS
 void sel_sortTest(){
     int max = 17;
 
@@ -126,28 +147,7 @@ void shell_sortTest(){
     //function isSorted
 }
 
-//Obtains the system time in microseconds
-double microseconds()
-{
-    struct timeval t;
-    if (gettimeofday(&t, NULL) < 0 )
-        return 0.0;
-    return (t.tv_usec + t.tv_sec * 1000000.0);
-}
-
-void generateAscending(int v[], int n){
-    for (int i = 0; i < n; ++i) {
-        v[i]=i;
-    }
-}
-
-void generateDescending(int v[], int n){
-    n-=1;
-    for (int i = 0; i <= n; ++i) {
-        v[i]=n-i;
-    }
-}
-
+//MEASURING FUNCTIONS
 double time_selSort(int MAX, int arrayType)
 {
     //ArrayType: 1:random, 2:ascending, 3:descending
@@ -210,8 +210,6 @@ double time_selSort(int MAX, int arrayType)
     return t;
 }
 
-
-
 double time_ShellSort(int MAX, int arrayType)
 {
     int v[MAX], i;
@@ -267,11 +265,7 @@ double time_ShellSort(int MAX, int arrayType)
     return t;
 }
 
-
-
-
-
-
+//MAIN
 int main() {
 
     int n=500, i;
