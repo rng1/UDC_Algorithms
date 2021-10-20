@@ -181,26 +181,20 @@ double time_selSort(int MAX, int arrayType)
                 default: break;
             }
 
-
             //maxSubSum1(v,MAX);
             sel_sort(v,MAX);
-
         }
         tb = microseconds();
         t1 = tb - ta; //more than 500
         ta = microseconds();
 
-        //esto que cojones hace
         for(i =0; i < K; i++){
-
             switch (arrayType) {
                 case 1: random_init(v,MAX); break;
                 case 2: generateAscending(v,MAX); break;
                 case 3: generateDescending(v,MAX); break;
                 default: break;
             }
-
-
         }
 
         tb = microseconds();
@@ -222,19 +216,15 @@ double time_ShellSort(int MAX, int arrayType)
         default: break;
     }
 
-
     ta = microseconds();
-
     //maxSubSum2(v,MAX);
     shell_sort(v,MAX);
-
     tb = microseconds();
     t = tb - ta;
 
     if(t < 500){
         ta = microseconds();
         for(i =0; i < K; i++){
-
             switch (arrayType) {
                 case 1: random_init(v,MAX); break;
                 case 2: generateAscending(v,MAX); break;
