@@ -255,19 +255,9 @@ double time_ShellSort(int MAX, int arrayType)
     return t;
 }
 
-//MAIN
-int main() {
-
-    int n=500, i;
+void selSortTables(){
+    int i, n=500;
     double t;
-
-    init_seed();
-
-
-    sel_sortTest();
-    shell_sortTest();
-
-
     printf("\n\nSelection sort random:\n");
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
@@ -293,7 +283,11 @@ int main() {
         printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
         n=n*2;
     }
+}
 
+void shellsortTables(){
+    int i, n=500;
+    double t;
     n=500;
     printf("\n\n\nShell sort random:\n");
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
@@ -320,6 +314,25 @@ int main() {
         printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
         n=n*2;
     }
+}
+
+
+
+//MAIN
+int main() {
+
+    int n=500, i;
+    double t;
+
+    init_seed();
+
+
+    sel_sortTest();
+    shell_sortTest();
+
+    selSortTables();
+    shellsortTables();;
+
 
     return 0;
 }
