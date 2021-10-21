@@ -1,0 +1,267 @@
+Algorithms
+Practical 2: Selection sort and Shell sort
+
+Author 1: Martin do Rio Rico          | Login 1: martin.dorio
+Author 2: Rodrigo Naranjo Gonzalez    | Login 2: r.naranjo
+Author 3: Guillermo Fernandez Sanchez | Login 1: guillermo.fernandezs
+
+We programmed two sorting algorithms, both take a sequence of numbers and order them: 
+the selection sort algorithm, the first one, works with the full length of the array, 
+while the shell sort algorithm, the second, reduces the number of of iterations it has to do by half.
+
+We implemneted both algorithms and tested them with two samples each, firstly with a randomly generated array 
+and secondly with a sequence in descending order. Once we made sure they worked properly our objective was to measure their efficency
+and analyze their complexity and compare them to see which one is faster.
+
+First, the algorithms are tested to ensure its correct operation:
+
+------
+Selection sort test:
+
+Random initialization
+ 	-2  -8 -13   8 -16   4  12 -13  13  14 -17   9  12  13  -3   3   4 
+Sorted? 0
+Selection sort:
+	-17 -16 -13 -13  -8  -3  -2   3   4   4   8   9  12  12  13  13  14 
+Sorted? 1
+
+Descending initialization
+ 	10   9   8   7   6   5   4   3   2   1 
+Sorted? 0
+Selection sort:
+	 1   2   3   4   5   6   7   8   9  10 
+Sorted? 1
+
+-------
+Shell sort test:
+
+Random initialization
+	 -4   5   2 -14  15  -5  -7   4   5   0  -5 -14 -12 -13  13   9  -8 
+Sorted? 0
+Shell sort:
+	-14 -14 -13 -12  -8  -7  -5  -5  -4   0   2   4   5   5   9  13  15 
+Sorted? 1
+
+Descending initialization
+	 10   9   8   7   6   5   4   3   2   1 
+Sorted? 0
+Shell sort:
+	  1   2   3   4   5   6   7   8   9  10 
+Sorted? 1
+--------
+
+We have run the algorithms with random vectors of different sizes n (500, 1000, 2000, 4000, 8000, 16000, 32000)
+following a geometric progression (*2) and we got the execution time through a function after which
+we performed an empirical verification of the complexity of the algorithms.
+
+All the times are measured in microseconds (ms).
+
+The executions times were calculated in a computer of the following characteristics:
+
+--------
+PONER LOS SPECS AQUÍ
+--------
+
+
+#####################
+SELECTION SHORT
+#####################
+
+Execution times of the algorithm Selection Sort algorithm with different values of n and a random array:
+
+--------
+Selection sort random:
+     n              t(n)        t(n)/n^1.8        t(n)/n^2.0        t(n)/n^2.2
+   500           502.000          0.006959          0.002008          0.000579
+  1000          1479.000          0.005888          0.001479          0.000372
+  2000          5043.000          0.005765          0.001261          0.000276
+  4000         28360.000          0.009311          0.001772          0.000337
+  8000         90158.000          0.008500          0.001409          0.000233
+ 16000        367512.000          0.009951          0.001436          0.000207
+ 32000       1408190.000          0.010949          0.001375          0.000173
+--------
+
+n^1.8: underestimated bound
+n^2: tight bound
+n^2.2: overestimated bound
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+
+#####################
+#####################
+
+Execution times of the algorithm Selection Sort algorithm with different values of n and an ascending array:
+
+--------
+Selection sort ascending:
+     n              t(n)        t(n)/n^1.8        t(n)/n^2.0        t(n)/n^2.2
+   500           507.000          0.007028          0.002028          0.000585
+  1000          1694.000          0.006744          0.001694          0.000426
+  2000          6420.000          0.007340          0.001605          0.000351
+  4000         28991.000          0.009518          0.001812          0.000345
+  8000         92198.000          0.008693          0.001441          0.000239
+ 16000        342675.000          0.009278          0.001339          0.000193
+ 32000       1360127.000          0.010576          0.001328          0.000167
+--------
+
+n^1.8: underestimated bound
+n^2: tight bound
+n^2.2: overestimated bound
+
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+
+#####################
+#####################
+
+Execution times of the algorithm Selection Sort algorithm with different values of n and a descending array:
+
+--------
+Selection sort descending:
+     n              t(n)        t(n)/n^1.8        t(n)/n^2.0        t(n)/n^2.2
+   500           506.000          0.007015          0.002024          0.000584
+  1000          1847.000          0.007353          0.001847          0.000464
+  2000          6284.000          0.007184          0.001571          0.000344
+  4000         29789.000          0.009780          0.001862          0.000354
+  8000        102372.000          0.009652          0.001600          0.000265
+ 16000        379378.000          0.010272          0.001482          0.000214
+ 32000       1519149.000          0.011812          0.001484          0.000186
+--------
+
+n^1.8: underestimated bound
+n^2: tight bound
+n^2.2: overestimated bound
+
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+
+#####################
+SHELL SHORT
+#####################
+
+Execution times of the algorithm Shell Sort algorithm with different values of n and a random array:
+
+--------
+Shell sort random:
+      n              t(n)        t(n)/n^0.9        t(n)/n^1.1        t(n)/n^1.3
+*   500            66.440          0.247375          0.071378          0.020595
+*  1000           196.530          0.392129          0.098498          0.024742
+*  2000           411.130          0.439594          0.096127          0.021020
+   4000          1110.000          0.636017          0.121076          0.023049
+   8000          1927.000          0.591699          0.098058          0.016250
+  16000          4490.000          0.738820          0.106589          0.015378
+  32000         10777.000          0.950305          0.119353          0.014990
+--------
+
+n^0.9: underestimated bound
+n^1.1: tight bound
+n^1.3: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+
+#####################
+#####################
+
+Execution times of the algorithm Shell Sort algorithm with different values of n and an ascending array:
+
+--------
+Shell sort ascending:
+      n              t(n)        t(n)/n^0.9        t(n)/n^1.1        t(n)/n^1.3
+*   500            18.940          0.070519          0.020348          0.005871
+*  1000            50.490          0.100741          0.025305          0.006356
+*  2000           103.380          0.110537          0.024171          0.005286
+*  4000           209.830          0.120230          0.022888          0.004357
+   8000           605.000          0.185769          0.030786          0.005102
+  16000          1131.000          0.186104          0.026849          0.003874
+  32000          2556.000          0.225385          0.028307          0.003555
+--------
+
+n^0.9: underestimated bound
+n^1.1: tight bound
+n^1.3: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+
+#####################
+#####################
+
+Execution times of the algorithm Shell Sort algorithm with different values of n and an descending array:
+
+--------
+Shell sort descending:
+      n              t(n)        t(n)/n^0.9        t(n)/n^1.1        t(n)/n^1.3
+*   500            44.020          0.163899          0.047291          0.013645
+*  1000            75.030          0.149705          0.037604          0.009446
+*  2000           171.790          0.183684          0.040167          0.008783
+*  4000           373.770          0.214166          0.040770          0.007761
+   8000           905.000          0.277887          0.046052          0.007632
+  16000          1634.000          0.268871          0.038790          0.005596
+  32000          3448.000          0.304041          0.038186          0.004796
+--------
+
+n^0.9: underestimated bound
+n^1.1: tight bound
+n^1.3: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+
+#####################
+#####################
+
+
+Finally, after running and measuring both algorithms we conclude that the shell sort algorithm is faster and more efficient
+since it follows a _______ growth while the _______ one follows a _______ one.
