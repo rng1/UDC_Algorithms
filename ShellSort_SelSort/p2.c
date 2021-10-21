@@ -57,6 +57,16 @@ void sel_sort(int v[], int n) {
     }
 }
 
+int isSorted(int v[], int n){
+    int i, sorted;
+
+    for (i = 0; i < n-1; ++i) {
+        if (v[i]>v[i+1]) return 0;
+    }
+
+    return 1;
+}
+
 //AUXILIARY FUNCTIONS
 void init_seed()
 {
@@ -112,17 +122,20 @@ void sel_sortTest(){
     random_init(randomArray, max);
     printf("Random initialization\n");
     print_array(randomArray, max);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(randomArray, max));
+
     sel_sort(randomArray,max);
+    printf("Selection sort:\n");
     print_array(randomArray, max);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(randomArray, max));
 
     printf("Descending initialization\n");
     print_array(descending, 10);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(descending, 10));
     sel_sort(descending,10);
+    printf("Selection sort:\n");
     print_array(descending, 10);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(descending, 10));
 }
 
 void shell_sortTest(){
@@ -134,17 +147,21 @@ void shell_sortTest(){
     random_init(randomArray, max);
     printf("Random initialization\n");
     print_array(randomArray, max);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(randomArray, max));
+
     shell_sort(randomArray,max);
+    printf("Shell sort:\n");
     print_array(randomArray, max);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(randomArray, max));
 
     printf("Descending initialization\n");
     print_array(descending, 10);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(descending, 10));
+
     shell_sort(descending,10);
+    printf("Shell sort:\n");
     print_array(descending, 10);
-    //function isSorted
+    printf("Sorted? %d\n", isSorted(descending, 10));
 }
 
 //MEASURING FUNCTIONS
@@ -217,7 +234,7 @@ double time_ShellSort(int MAX, int arrayType)
     }
 
     ta = microseconds();
-    //maxSubSum2(v,MAX);
+
     shell_sort(v,MAX);
     tb = microseconds();
     t = tb - ta;
@@ -232,7 +249,7 @@ double time_ShellSort(int MAX, int arrayType)
                 default: break;
             }
 
-            //maxSubSum2(v,MAX);
+
             shell_sort(v,MAX);
         }
         tb = microseconds();
@@ -276,7 +293,7 @@ void selSortTables(){
     }
 
     n=500;
-    printf("\n\nSelection sort descendding:\n");
+    printf("\n\nSelection sort descending:\n");
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
         t = time_selSort(n,3);
@@ -290,28 +307,28 @@ void shellsortTables(){
     double t;
     n=500;
     printf("\n\n\nShell sort random:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.9", "t(n)/n^1.1", "t(n)/n^1.3");
     for (i = 0; i<=6;i++){
         t = time_ShellSort(n,1);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.9)),t/(pow(n,1.1)),t/(pow(n,1.3)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nShell sort ascending:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.9", "t(n)/n^1.1", "t(n)/n^1.3");
     for (i = 0; i<=6;i++){
         t = time_ShellSort(n,2);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.9)),t/(pow(n,1.1)),t/(pow(n,1.3)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nShell sort descending:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.6", "t(n)/n^1.10", "t(n)/n^1.7");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.9", "t(n)/n^1.1", "t(n)/n^1.3");
     for (i = 0; i<=6;i++){
         t = time_ShellSort(n,3);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.6)),t/(pow(n,1.1)),t/(pow(n,1.7)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.9)),t/(pow(n,1.1)),t/(pow(n,1.3)));
         n=n*2;
     }
 }
@@ -328,11 +345,11 @@ int main() {
 
 
     sel_sortTest();
+    printf("\n");
     shell_sortTest();
 
     selSortTables();
     shellsortTables();;
-
 
     return 0;
 }
