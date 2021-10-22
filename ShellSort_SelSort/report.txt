@@ -58,9 +58,9 @@ All the times are measured in microseconds (ms).
 
 The executions times were calculated in a computer of the following characteristics:
 
---------
-PONER LOS SPECS AQUÍ
---------
+    Os: Zorin OS 16 x86_64
+    CPU: Intel i5-10400F (12) @ 4.300GHz
+    Memory: 15946MiB
 
 
 #####################
