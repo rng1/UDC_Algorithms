@@ -181,7 +181,6 @@ double time_selSort(int MAX, int arrayType)
 
     ta = microseconds();
 
-    //maxSubSum1(v,MAX);
     sel_sort(v,MAX);
 
     tb = microseconds();
@@ -198,7 +197,6 @@ double time_selSort(int MAX, int arrayType)
                 default: break;
             }
 
-            //maxSubSum1(v,MAX);
             sel_sort(v,MAX);
         }
         tb = microseconds();
