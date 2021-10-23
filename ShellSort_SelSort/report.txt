@@ -15,40 +15,38 @@ and analyze their complexity and compare them to see which one is faster.
 
 First, the algorithms are tested to ensure its correct operation:
 
-------
 Selection sort test:
 
-Random initialization
+We do a random initialization
  	-2  -8 -13   8 -16   4  12 -13  13  14 -17   9  12  13  -3   3   4 
-Sorted? 0
-Selection sort:
+The sequence is not sorted.
+After the selection sort:
 	-17 -16 -13 -13  -8  -3  -2   3   4   4   8   9  12  12  13  13  14 
-Sorted? 1
+The sequence is sorted.
 
-Descending initialization
+We do a descending initialization
  	10   9   8   7   6   5   4   3   2   1 
-Sorted? 0
-Selection sort:
+The sequence is not sorted.
+After the selection sort:
 	 1   2   3   4   5   6   7   8   9  10 
-Sorted? 1
+The sequence is sorted.
 
--------
+
 Shell sort test:
 
-Random initialization
+We do a random initialization
 	 -4   5   2 -14  15  -5  -7   4   5   0  -5 -14 -12 -13  13   9  -8 
-Sorted? 0
-Shell sort:
+The sequence is not sorted.
+After the shellsort:
 	-14 -14 -13 -12  -8  -7  -5  -5  -4   0   2   4   5   5   9  13  15 
-Sorted? 1
+The sequence is sorted.
 
-Descending initialization
+We do a descending initialization
 	 10   9   8   7   6   5   4   3   2   1 
-Sorted? 0
-Shell sort:
+The sequence is not sorted.
+After the shellsort:
 	  1   2   3   4   5   6   7   8   9  10 
-Sorted? 1
---------
+The sequence is sorted.
 
 We have run the algorithms with random vectors of different sizes n (500, 1000, 2000, 4000, 8000, 16000, 32000)
 following a geometric progression (*2) and we got the execution time through a function after which
@@ -62,12 +60,7 @@ The executions times were calculated in a computer of the following characterist
     CPU: Intel i5-10400F (12) @ 4.300GHz
     Memory: 15946MiB
 
-
-#####################
-SELECTION SHORT
-#####################
-
-Execution times of the algorithm Selection Sort algorithm with different values of n and a random array:
+Execution times of the algorithm selection sort algorithm with different values of n and a random array:
 
 --------
 Selection sort random:
@@ -82,22 +75,20 @@ Selection sort random:
 --------
 
 n^1.8: underestimated bound
-n^2: tight bound
+n^2.0: tight bound
 n^2.2: overestimated bound
 
 After running the program we can observe the following...
 
-- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.00150 and 0.00130, even if it deviates sometimes.
 
 - The algorithm follows a quadratic growth, and its computational complexity is n^2.
 
-#####################
-#####################
 
-Execution times of the algorithm Selection Sort algorithm with different values of n and an ascending array:
+Execution times of the algorithm selection sort algorithm with different values of n and an ascending array:
 
 --------
 Selection sort ascending:
@@ -112,23 +103,21 @@ Selection sort ascending:
 --------
 
 n^1.8: underestimated bound
-n^2: tight bound
+n^2.0: tight bound
 n^2.2: overestimated bound
 
 
 After running the program we can observe the following...
 
-- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.00150 and 0.00130, even if it deviates sometimes.
 
 - The algorithm follows a quadratic growth, and its computational complexity is n^2.
 
-#####################
-#####################
 
-Execution times of the algorithm Selection Sort algorithm with different values of n and a descending array:
+Execution times of the algorithm selection sort algorithm with different values of n and a descending array:
 
 --------
 Selection sort descending:
@@ -149,18 +138,15 @@ n^2.2: overestimated bound
 
 After running the program we can observe the following...
 
-- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.00150 and 0.00130, even if it deviates sometimes.
 
 - The algorithm follows a quadratic growth, and its computational complexity is n^2.
 
-#####################
-SHELL SHORT
-#####################
 
-Execution times of the algorithm Shell Sort algorithm with different values of n and a random array:
+Execution times of the algorithm shell sort algorithm with different values of n and a random array:
 
 --------
 Shell sort random:
@@ -184,17 +170,15 @@ n^1.3: overestimated bound
 
 After running the program we can observe the following...
 
-- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.10000 and 0.09000, even if it deviates sometimes.
 
-- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+- The algorithm follows a linear growth, and its computational complexity is n^1.1.
 
-#####################
-#####################
 
-Execution times of the algorithm Shell Sort algorithm with different values of n and an ascending array:
+Execution times of the algorithm shell sort algorithm with different values of n and an ascending array:
 
 --------
 Shell sort ascending:
@@ -218,17 +202,15 @@ n^1.3: overestimated bound
 
 After running the program we can observe the following...
 
-- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.03000 and 0.02000, even if it deviates sometimes.
 
-- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+- The algorithm follows a linear growth, and its computational complexity is n^1.1.
 
-#####################
-#####################
 
-Execution times of the algorithm Shell Sort algorithm with different values of n and an descending array:
+Execution times of the algorithm shell sort algorithm with different values of n and an descending array:
 
 --------
 Shell sort descending:
@@ -252,16 +234,14 @@ n^1.3: overestimated bound
 
 After running the program we can observe the following...
 
-- The underestimated bound is constantly growing as we increase n so we can deduce it tends to infinity,
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- The tight bound tends to a constant contained in the interval between 0.00100 and 0.00097.
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.04700 and 0.03700, even if it deviates sometimes.
 
-- The algorithm follows a quadratic growth, and its computational complexity is n^2.
+- The algorithm follows a linear growth, and its computational complexity is n^1.1.
 
-#####################
-#####################
 
 
 Finally, after running and measuring both algorithms we conclude that the shell sort algorithm is faster and more efficient
-since it follows a _______ growth while the _______ one follows a _______ one.
+since it follows a linear growth while the selection sort one follows a quadratic one.
