@@ -7,7 +7,7 @@ void swap(int *x, int *y);
 void median3(int v[], int i, int j);
 void sort_aux(int v[], int left, int right);
 void array_print (int v[], int n);
-int is_sorted(const int v[], int n);
+int is_sorted(int v[], int n);
 void ins_sort(int v[], int n);
 void quick_sort(int v[], int n);
 
@@ -62,7 +62,7 @@ void quick_sort(int v[], int n)
 
 /** AUXILIARY FUNCTIONS */
 
-int is_sorted(const int v[], int n)
+int is_sorted(int v[], int n)
 {
     int i;
 
