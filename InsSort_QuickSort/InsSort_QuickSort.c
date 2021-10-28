@@ -1,36 +1,53 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
+#include <stdbool.h>
+#include <math.h>
 
-#define ARRAYLENGTH 100
-#define THRESHOLD 1
+#define ARRAYLENGTH 20
+#define K 100
+//#define THRESHOLD 1
 
 void swap(int *x, int *y);
 void median3(int v[], int i, int j);
-void sort_aux(int v[], int left, int right);
+void sort_aux(int v[], int left, int right,int threshold);
 void array_print (int v[], int n);
 int is_sorted(int v[], int n);
 void ins_sort(int v[], int n);
-void quick_sort(int v[], int n);
+void quick_sort(int v[], int n, int threshold);
+void init_seed();
+void random_init(int v [], int n);
+void generate_ascending(int v[], int n);
+void generate_descending(int v[], int n);
+void test_QuickSort();
+void test_InsertionSort();
+double time_quickSort(int MAX, int arrayType, int threshold);
+void insertionSort_Tables();
+void quickSort_TablesAux(int threshold);
+void quickSort_Tables();
+double microseconds();
 
-/** MAIN FUNCTION AND ALGORITHMS */
+   
+
+/* MAIN FUNCTION AND ALGORITHMS */
 int main()
 {
-    int v[ARRAYLENGTH] =
-            {3, 44, -32, 7, -13, 21, 42, 34, -6, -7, 36, -40, -47, -14, -4, -17, 20, -29,
-             -38, 45, -24, -9, 38, -5, 37, 19, -48, 12, -49, -22, -46, 33, -2, 48, -37,
-             -31, -16, 18, 31, -11, 8, 15, 10, -12, 27, -35, 30, -45, -27, 22, 46, 47, -25,
-             29, -43, 23, -15, 26, 4, -34, 40, -39, 2, -8, -28, 6, -10, 43, 17, 25, 50, 16, 49, -18, -3, -42, 9, 0, 5,
-             -30, 14, 11, 13, -21, -44, -23, -19, 41, -26, 28, 32, 39, 24, 35, -33, -36, 1, -1, -50, -41};
+	init_seed();
+    test_QuickSort();
+    printf("\n");	
+	test_InsertionSort();  
+    printf("\n\n");    
 
-    array_print(v, ARRAYLENGTH);
-    printf("sorted? %d\n", is_sorted(v, ARRAYLENGTH));
+    insertionSort_Tables();
 
-    quick_sort(v,ARRAYLENGTH);
+    printf("\n\n");
 
-    array_print(v, ARRAYLENGTH);
-    printf("sorted? %d\n", is_sorted(v, ARRAYLENGTH));
+    quickSort_Tables();
 
     return 0;
 }
+
 
 void ins_sort(int v[], int n)
 {
@@ -52,15 +69,270 @@ void ins_sort(int v[], int n)
     }
 }
 
-void quick_sort(int v[], int n)
+void quick_sort(int v[], int n, int threshold)
 {
-    sort_aux(v, 0, n - 1);
+    sort_aux(v, 0, n - 1,threshold);
 
-    if (THRESHOLD > 1)
+    if (threshold > 1)
         ins_sort(v, n);
 }
 
-/** AUXILIARY FUNCTIONS */
+
+/* TEST FUNCTIONS */
+
+void test_QuickSort(){
+
+    int v[ARRAYLENGTH];
+
+    printf("Quick sort test:\n\n");
+
+    printf("Random initialization:\n");
+    random_init(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
+    quick_sort(v,ARRAYLENGTH,1);
+    array_print(v,ARRAYLENGTH);
+    printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
+    
+
+    printf("Descending initialization:\n");
+    generate_descending(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
+    quick_sort(v,ARRAYLENGTH,1);
+    array_print(v,ARRAYLENGTH);
+    printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
+
+    printf("Ascending initialization:\n");
+    generate_ascending(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
+    quick_sort(v,ARRAYLENGTH,1);
+    array_print(v,ARRAYLENGTH);
+    printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
+
+}
+
+void test_InsertionSort(){
+
+    int v[ARRAYLENGTH];
+
+    printf("Insertion sort test:\n\n");
+
+    printf("Random initialization:\n");
+    random_init(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
+    ins_sort(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
+    
+
+    printf("Descending initialization:\n");
+    generate_descending(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
+    ins_sort(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
+
+    printf("Ascending initialization:\n");
+    generate_ascending(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
+    ins_sort(v,ARRAYLENGTH);
+    array_print(v,ARRAYLENGTH);
+    printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
+
+}
+
+/* MEASURING TIME FUNCTIONS */
+
+double time_insertionSort(int MAX, int arrayType)
+{
+    int v[MAX], i;
+    double ta, tb, t, t1, t2;
+
+    switch (arrayType) {
+        case 1: random_init(v,MAX); break;
+        case 2: generate_ascending(v,MAX); break;
+        case 3: generate_descending(v,MAX); break;
+        default: break;
+    }
+
+    ta = microseconds();
+
+    ins_sort(v,MAX);
+    tb = microseconds();
+    t = tb - ta;
+
+    if(t < 500){
+        ta = microseconds();
+        for(i =0; i < K; i++){
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generate_ascending(v,MAX); break;
+                case 3: generate_descending(v,MAX); break;
+                default: break;
+            }
+
+
+            ins_sort(v,MAX);
+        }
+        tb = microseconds();
+        t1 = tb - ta; //more than 500
+        ta = microseconds();
+
+        for(i =0; i < K; i++){
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generate_ascending(v,MAX); break;
+                case 3: generate_descending(v,MAX); break;
+                default: break;
+            }
+        }
+
+        tb = microseconds();
+        t2 = tb - ta;
+        t = (t1 -t2) / K;
+    }
+    return t;
+}
+
+
+//TODO: switch to separated function
+double time_quickSort(int MAX, int arrayType,int threshold)
+{
+    //ArrayType: 1:random, 2:ascending, 3:descending
+    int v[MAX], i;
+
+    double ta, tb, t, t1, t2;
+
+    switch (arrayType) {
+        case 1: random_init(v,MAX); break;
+        case 2: generate_ascending(v,MAX); break;
+        case 3: generate_descending(v,MAX); break;
+        default: break;
+    }
+
+    ta = microseconds();
+
+    quick_sort(v,MAX,threshold);
+
+    tb = microseconds();
+    t = tb - ta;
+
+    if(t < 500){
+        ta = microseconds();
+        for(i =0; i < K; i++){
+
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generate_ascending(v,MAX); break;
+                case 3: generate_descending(v,MAX); break;
+                default: break;
+            }
+
+            quick_sort(v,MAX,threshold);
+        }
+        tb = microseconds();
+        t1 = tb - ta; //more than 500
+        ta = microseconds();
+
+        for(i =0; i < K; i++){
+            switch (arrayType) {
+                case 1: random_init(v,MAX); break;
+                case 2: generate_ascending(v,MAX); break;
+                case 3: generate_descending(v,MAX); break;
+                default: break;
+            }
+        }
+
+        tb = microseconds();
+        t2 = tb - ta;
+        t = (t1 -t2) / K;
+    }
+    return t;
+}
+
+/* TABLES */
+
+void insertionSort_Tables(){
+    int i, n=500;
+    double t;
+    printf("\n\nInsertion sort random:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_insertionSort(n,1);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nInsertion sort ascending:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_insertionSort(n,2);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nInsertion sort descending:\n");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_insertionSort(n,3);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+}
+
+void quickSort_Tables(){
+
+    int threshold=1;
+
+    for (int i = 0; i < 3; ++i)
+    {
+        quickSort_TablesAux(threshold);
+        threshold*=10;
+    }
+
+
+}
+
+void quickSort_TablesAux(int threshold){
+    int i, n=500;
+    double t;
+    printf("\n\nQuick sort random with threshold %d:\n",threshold);
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_quickSort(n,1,threshold);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nQuick sort ascending with threshold %d:\n",threshold);
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_quickSort(n,2,threshold);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+
+    n=500;
+    printf("\n\nQuick sort descending with threshold %d:\n",threshold);
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    for (i = 0; i<=6;i++){
+        t = time_quickSort(n,3,threshold);
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        n=n*2;
+    }
+}
+
+
+
+/* AUXILIARY FUNCTIONS */
 
 int is_sorted(int v[], int n)
 {
@@ -106,11 +378,11 @@ void median3(int v[], int i, int j)
         swap(&v[i], &v[j]);
 }
 
-void sort_aux(int v[], int left, int right)
+void sort_aux(int v[], int left, int right, int threshold)
 {
     int pivot, i, j;
 
-    if (left + THRESHOLD <= right)
+    if (left + threshold <= right)
     {
         median3(v, left, right);
 
@@ -132,8 +404,43 @@ void sort_aux(int v[], int left, int right)
 
         swap(&v[i], &v[j]); // undo last swap
         swap(&v[left], &v[j]);
-        sort_aux(v, left, j - 1);
-        sort_aux(v, j + 1, right);
+        sort_aux(v, left, j - 1,threshold);
+        sort_aux(v, j + 1, right,threshold);
     }
+}
 
+double microseconds()
+{
+    struct timeval t;
+    if (gettimeofday(&t, NULL) < 0 )
+        return 0.0;
+    return (t.tv_usec + t.tv_sec * 1000000.0);
+}
+
+/* ARRAY CREATION FUNCTIONS */
+
+void init_seed()
+{
+    srand(time(NULL));
+}
+
+void random_init(int v [], int n)
+{
+    int i, m=2*n+1;
+    for (i=0; i < n; i++)
+        v[i] = (rand() % m) - n;
+}
+
+
+void generate_ascending(int v[], int n){
+    for (int i = 0; i < n; ++i) {
+        v[i]=i;
+    }
+}
+
+void generate_descending(int v[], int n){
+    n-=1;
+    for (int i = 0; i <= n; ++i) {
+        v[i]=n-i;
+    }
 }
