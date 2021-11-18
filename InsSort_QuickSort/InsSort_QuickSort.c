@@ -35,12 +35,8 @@ int main()
     test_QuickSort();
     printf("\n");
     test_InsertionSort();
-    printf("\n\n");
 
     insertionSort_Tables();
-
-    printf("\n\n");
-
     quickSort_Tables();
 
     return 0;
@@ -56,13 +52,11 @@ void ins_sort(int v[], int n)
     {
         x = v[i];
         j = i - 1;
-
         while (j >= 0 && v[j] > x)
         {
             v[j + 1] = v[j];
             j--;
         }
-
         v[j + 1] = x;
     }
 }
@@ -144,8 +138,18 @@ void test_InsertionSort(){
 
 }
 
-/* MEASURING TIME FUNCTIONS */
+void initArray(int v[], int arrayType, int MAX){
 
+    switch (arrayType) {
+        case 1: random_init(v,MAX); break;
+        case 2: generate_ascending(v,MAX); break;
+        case 3: generate_descending(v,MAX); break;
+        default: break;
+    }
+}
+
+
+/* MEASURING TIME FUNCTIONS */
 double time_insertionSort(int MAX, int arrayType)
 {
     int v[MAX], i;
@@ -258,7 +262,8 @@ double time_quickSort(int MAX, int arrayType)
 void insertionSort_Tables(){
     int i, n=500;
     double t;
-    printf("\n\nInsertion sort random:\n");
+    printf("Insertion sort tables:\n------------------------------\n");
+    printf("Insertion sort random:\n");
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
         t = time_insertionSort(n,1);
@@ -268,19 +273,19 @@ void insertionSort_Tables(){
 
     n=500;
     printf("\n\nInsertion sort ascending:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.7", "t(n)/n^0.9", "t(n)/n^1.1");
     for (i = 0; i<=6;i++){
         t = time_insertionSort(n,2);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.7)),t/(pow(n,0.9)),t/(pow(n,1.1)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nInsertion sort descending:\n");
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.7", "t(n)/n^1.9", "t(n)/n^2.1");
     for (i = 0; i<=6;i++){
         t = time_insertionSort(n,3);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.7)),t/(pow(n,1.9)),t/(pow(n,2.1)));
         n=n*2;
     }
 }
@@ -288,29 +293,30 @@ void insertionSort_Tables(){
 void quickSort_Tables(){
     int i, n=500;
     double t;
-    printf("\n\nQuick sort random with threshold %d:\n", THRESHOLD);
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("\n\nQuick sort tables:\n------------------------------\n");
+    printf("Quick sort random with threshold %d:\n", THRESHOLD);
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1", "t(n)/n^1.1", "t(n)/n^1.2");
     for (i = 0; i<=6;i++){
         t = time_quickSort(n,1);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1)),t/(pow(n,1.1)),t/(pow(n,1.2)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nQuick sort ascending with threshold %d:\n",THRESHOLD);
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^0.8", "t(n)/n^1", "t(n)/n^1.2");
     for (i = 0; i<=6;i++){
         t = time_quickSort(n,2);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,0.8)),t/(pow(n,1)),t/(pow(n,1.2)));
         n=n*2;
     }
 
     n=500;
     printf("\n\nQuick sort descending with threshold %d:\n",THRESHOLD);
-    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.6", "t(n)/n^1.8", "t(n)/n^2");
     for (i = 0; i<=6;i++){
         t = time_quickSort(n,3);
-        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
+        printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.6)),t/(pow(n,1.8)),t/(pow(n,2)));
         n=n*2;
     }
 }
