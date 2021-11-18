@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
-#include <stdbool.h>
 #include <math.h>
 
 #define ARRAYLENGTH 20
@@ -27,16 +26,16 @@ void insertionSort_Tables();
 void quickSort_Tables();
 double microseconds();
 
-   
+
 
 /* MAIN FUNCTION AND ALGORITHMS */
 int main()
 {
-	init_seed();
+    init_seed();
     test_QuickSort();
-    printf("\n");	
-	test_InsertionSort();  
-    printf("\n\n");    
+    printf("\n");
+    test_InsertionSort();
+    printf("\n\n");
 
     insertionSort_Tables();
 
@@ -70,7 +69,7 @@ void ins_sort(int v[], int n)
 
 void quick_sort(int v[], int n)
 {
-    sort_aux(v, 0, n - 1, THRESHOLD);
+    sort_aux(v, 0, n - 1);
 
     if (THRESHOLD > 1)
         ins_sort(v, n);
@@ -89,16 +88,16 @@ void test_QuickSort(){
     random_init(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
-    quick_sort(v,ARRAYLENGTH,1);
+    quick_sort(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
-    
+
 
     printf("Descending initialization:\n");
     generate_descending(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
-    quick_sort(v,ARRAYLENGTH,1);
+    quick_sort(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
 
@@ -106,7 +105,7 @@ void test_QuickSort(){
     generate_ascending(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("Sorted? %d\nsorting...\n", is_sorted(v,ARRAYLENGTH));
-    quick_sort(v,ARRAYLENGTH,1);
+    quick_sort(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
 
@@ -125,7 +124,7 @@ void test_InsertionSort(){
     ins_sort(v,ARRAYLENGTH);
     array_print(v,ARRAYLENGTH);
     printf("sorted? %d\n\n",is_sorted(v,ARRAYLENGTH));
-    
+
 
     printf("Descending initialization:\n");
     generate_descending(v,ARRAYLENGTH);
