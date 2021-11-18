@@ -7,24 +7,23 @@
 
 #define ARRAYLENGTH 20
 #define K 100
-//#define THRESHOLD 1
+#define THRESHOLD 1
 
 void swap(int *x, int *y);
 void median3(int v[], int i, int j);
-void sort_aux(int v[], int left, int right,int threshold);
+void sort_aux(int v[], int left, int right);
 void array_print (int v[], int n);
 int is_sorted(int v[], int n);
 void ins_sort(int v[], int n);
-void quick_sort(int v[], int n, int threshold);
+void quick_sort(int v[], int n);
 void init_seed();
 void random_init(int v [], int n);
 void generate_ascending(int v[], int n);
 void generate_descending(int v[], int n);
 void test_QuickSort();
 void test_InsertionSort();
-double time_quickSort(int MAX, int arrayType, int threshold);
+double time_quickSort(int MAX, int arrayType);
 void insertionSort_Tables();
-void quickSort_TablesAux(int threshold);
 void quickSort_Tables();
 double microseconds();
 
@@ -69,11 +68,11 @@ void ins_sort(int v[], int n)
     }
 }
 
-void quick_sort(int v[], int n, int threshold)
+void quick_sort(int v[], int n)
 {
-    sort_aux(v, 0, n - 1,threshold);
+    sort_aux(v, 0, n - 1, THRESHOLD);
 
-    if (threshold > 1)
+    if (THRESHOLD > 1)
         ins_sort(v, n);
 }
 
@@ -201,7 +200,7 @@ double time_insertionSort(int MAX, int arrayType)
 
 
 //TODO: switch to separated function
-double time_quickSort(int MAX, int arrayType,int threshold)
+double time_quickSort(int MAX, int arrayType)
 {
     //ArrayType: 1:random, 2:ascending, 3:descending
     int v[MAX], i;
@@ -217,7 +216,7 @@ double time_quickSort(int MAX, int arrayType,int threshold)
 
     ta = microseconds();
 
-    quick_sort(v,MAX,threshold);
+    quick_sort(v,MAX);
 
     tb = microseconds();
     t = tb - ta;
@@ -233,7 +232,7 @@ double time_quickSort(int MAX, int arrayType,int threshold)
                 default: break;
             }
 
-            quick_sort(v,MAX,threshold);
+            quick_sort(v,MAX);
         }
         tb = microseconds();
         t1 = tb - ta; //more than 500
@@ -288,43 +287,30 @@ void insertionSort_Tables(){
 }
 
 void quickSort_Tables(){
-
-    int threshold=1;
-
-    for (int i = 0; i < 3; ++i)
-    {
-        quickSort_TablesAux(threshold);
-        threshold*=10;
-    }
-
-
-}
-
-void quickSort_TablesAux(int threshold){
     int i, n=500;
     double t;
-    printf("\n\nQuick sort random with threshold %d:\n",threshold);
+    printf("\n\nQuick sort random with threshold %d:\n", THRESHOLD);
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
-        t = time_quickSort(n,1,threshold);
+        t = time_quickSort(n,1);
         printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
         n=n*2;
     }
 
     n=500;
-    printf("\n\nQuick sort ascending with threshold %d:\n",threshold);
+    printf("\n\nQuick sort ascending with threshold %d:\n",THRESHOLD);
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
-        t = time_quickSort(n,2,threshold);
+        t = time_quickSort(n,2);
         printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
         n=n*2;
     }
 
     n=500;
-    printf("\n\nQuick sort descending with threshold %d:\n",threshold);
+    printf("\n\nQuick sort descending with threshold %d:\n",THRESHOLD);
     printf("%6s%18s%18s%18s%18s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
     for (i = 0; i<=6;i++){
-        t = time_quickSort(n,3,threshold);
+        t = time_quickSort(n,3);
         printf("%6d%18.3lf%18.6lf%18.6lf%18.6lf\n",n, t, t/(pow(n,1.8)),t/(pow(n,2)),t/(pow(n,2.2)));
         n=n*2;
     }
@@ -378,11 +364,11 @@ void median3(int v[], int i, int j)
         swap(&v[i], &v[j]);
 }
 
-void sort_aux(int v[], int left, int right, int threshold)
+void sort_aux(int v[], int left, int right)
 {
     int pivot, i, j;
 
-    if (left + threshold <= right)
+    if (left + THRESHOLD <= right)
     {
         median3(v, left, right);
 
@@ -404,8 +390,8 @@ void sort_aux(int v[], int left, int right, int threshold)
 
         swap(&v[i], &v[j]); // undo last swap
         swap(&v[left], &v[j]);
-        sort_aux(v, left, j - 1,threshold);
-        sort_aux(v, j + 1, right,threshold);
+        sort_aux(v, left, j - 1);
+        sort_aux(v, j + 1, right);
     }
 }
 
