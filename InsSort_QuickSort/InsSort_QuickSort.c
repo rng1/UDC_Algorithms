@@ -155,12 +155,7 @@ double time_insertionSort(int MAX, int arrayType)
     int v[MAX], i;
     double ta, tb, t, t1, t2;
 
-    switch (arrayType) {
-        case 1: random_init(v,MAX); break;
-        case 2: generate_ascending(v,MAX); break;
-        case 3: generate_descending(v,MAX); break;
-        default: break;
-    }
+    initArray(v,arrayType,MAX);
 
     ta = microseconds();
 
@@ -171,14 +166,7 @@ double time_insertionSort(int MAX, int arrayType)
     if(t < 500){
         ta = microseconds();
         for(i =0; i < K; i++){
-            switch (arrayType) {
-                case 1: random_init(v,MAX); break;
-                case 2: generate_ascending(v,MAX); break;
-                case 3: generate_descending(v,MAX); break;
-                default: break;
-            }
-
-
+            initArray(v,arrayType,MAX);
             ins_sort(v,MAX);
         }
         tb = microseconds();
@@ -186,12 +174,7 @@ double time_insertionSort(int MAX, int arrayType)
         ta = microseconds();
 
         for(i =0; i < K; i++){
-            switch (arrayType) {
-                case 1: random_init(v,MAX); break;
-                case 2: generate_ascending(v,MAX); break;
-                case 3: generate_descending(v,MAX); break;
-                default: break;
-            }
+            initArray(v,arrayType,MAX);
         }
 
         tb = microseconds();
@@ -202,7 +185,7 @@ double time_insertionSort(int MAX, int arrayType)
 }
 
 
-//TODO: switch to separated function
+
 double time_quickSort(int MAX, int arrayType)
 {
     //ArrayType: 1:random, 2:ascending, 3:descending
@@ -210,12 +193,7 @@ double time_quickSort(int MAX, int arrayType)
 
     double ta, tb, t, t1, t2;
 
-    switch (arrayType) {
-        case 1: random_init(v,MAX); break;
-        case 2: generate_ascending(v,MAX); break;
-        case 3: generate_descending(v,MAX); break;
-        default: break;
-    }
+    initArray(v,arrayType,MAX);
 
     ta = microseconds();
 
@@ -228,12 +206,7 @@ double time_quickSort(int MAX, int arrayType)
         ta = microseconds();
         for(i =0; i < K; i++){
 
-            switch (arrayType) {
-                case 1: random_init(v,MAX); break;
-                case 2: generate_ascending(v,MAX); break;
-                case 3: generate_descending(v,MAX); break;
-                default: break;
-            }
+            initArray(v,arrayType,MAX);
 
             quick_sort(v,MAX);
         }
@@ -242,12 +215,7 @@ double time_quickSort(int MAX, int arrayType)
         ta = microseconds();
 
         for(i =0; i < K; i++){
-            switch (arrayType) {
-                case 1: random_init(v,MAX); break;
-                case 2: generate_ascending(v,MAX); break;
-                case 3: generate_descending(v,MAX); break;
-                default: break;
-            }
+            initArray(v,arrayType,MAX);
         }
 
         tb = microseconds();
