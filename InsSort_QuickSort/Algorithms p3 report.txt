@@ -16,10 +16,11 @@ We programmed two sorting algorithms, both take a sequence of numbers and order 
     selects the median of the array as pivot. The resulting arrays are then sorted recursively by comparison, placing the smaller elements
     before the pivot, and the larger elements after it.
 
-We implemented both algorithms and tested them with several samples each, 
-the insertion sort algorithm was tested with a randomly generated array, with and array sroted in ascending order and other sorted in descending order
-on the other hand, the quicksort was tested with three similar arrays, but with three different thresholds: one, ten and a hundred.
-Once we made sure they worked properly our objective was to measure their efficency and analyze their complexity and compare them to see which one is faster.
+We implemented both algorithms and tested them with several samples each:
+
+  - The insertion sort algorithm was tested with a randomly generated array, with and array sorted in ascending order, and another sorted in descending order.
+  - The quicksort was tested with three similar arrays, but with three different thresholds: 1, 10 and 100.
+Once we made sure they worked properly our objective was to measure their efficency and analyze their complexity, comparing them to see which one is faster.
 
 First, the algorithms are tested to ensure its correct operation:
 
@@ -145,13 +146,13 @@ After running the program we can observe the following...
 
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity.
 
-- For the overestimated bound we chose 1.0 instead of something bigger to demostatre that while it is extremely close to the tight bound and doesn't behave as and overestimated bound
-we couldn't choose it as the tight bound because it is not stable enough and usually tends to grow.
+- For the overestimated bound we chose 1.0 instead of something bigger to demonstatre that while it is extremely close to the tight bound and doesn't behave as an overestimated bound,
+  we couldn't choose it as the tight bound because it is not stable enough and usually tends to grow.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.013500 and 0.014500.
 
 - Of all tables we reviewed this one is the best to see how slowly the value tends to a constant even if it is unstable in the beggining,
-we atribute that behaviour to the fact that the values are extremly small.
+  we atribute that behaviour to the fact that the values are extremly small.
 
 - The algorithm follows a linear growth, and its computational complexity is n^0.9.
 
@@ -214,7 +215,7 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We chose 1.0 as the underestimated bound to demostrate that because it is constantly growing we couldn't use as a tight bound.
+- We chose 1.0 as the underestimated bound to demonstrate that because it is constantly growing we couldn't use as a tight bound.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.044 and 0.050.
 
@@ -283,7 +284,7 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We chose 2.0 as the overestimated bound to demostrate that because it is constantly decresing we couldn't use as a tight bound.
+- We chose 2.0 as the overestimated bound to demonstrate that because it is constantly decresing we couldn't use as a tight bound.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.021 and 0.024.
 
@@ -318,7 +319,7 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We chose 1.0 as the underestimated bound to demostrate that because it is constantly growing we couldn't use as a tight bound.
+- We chose 1.0 as the underestimated bound to demonstrate that because it is constantly growing we couldn't use as a tight bound.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.067 and 0.071.
 
@@ -384,7 +385,7 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We chose 2.0 as the overestimated bound to demostrate that because it is constantly decreasig we couldn't use as a tight bound.
+- We chose 2.0 as the overestimated bound to demonstrate that because it is constantly decreasig we couldn't use as a tight bound.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.023 and 0.029.
 
@@ -421,7 +422,7 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We chose 1.0 as the underestimated bound to demostrate that because it is constantly growing we couldn't use as a tight bound.
+- We chose 1.0 as the underestimated bound to demonstrate that because it is constantly growing we couldn't use as a tight bound.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.07 and 0.05.
 
@@ -489,7 +490,7 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We chose 2.0 as the overestimated bound to demostrate that because it is constantly decresing we couldn't use as a tight bound.
+- We chose 2.0 as the overestimated bound to demonstrate that because it is constantly decresing we couldn't use as a tight bound.
 
 - The tight bound tends to a constant contained in an interval we estimate is located between 0.0018 and 0.0025.
 
