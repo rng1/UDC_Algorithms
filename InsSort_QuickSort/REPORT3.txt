@@ -1,0 +1,517 @@
+Algorithms
+Practical 3: Insertion sort and quicksort
+
+Author 1: Martin do Rio Rico          | Login 1: martin.dorio
+Author 2: Rodrigo Naranjo Gonzalez    | Login 2: r.naranjo
+Author 3: Guillermo Fernandez Sanchez | Login 1: guillermo.fernandezs
+
+We programmed two sorting algorithms, both take a sequence of numbers and order them: 
+
+  - The insertion sort splits the array into a sorted and an unsorted part, picking unsorted values and placing them in their correct 
+    positions in the sorted part. This is made by comparing the key element to its predecessor, if it is smaller, compare it to the 
+    elements prior, moving the greater elements to make room for the swapped item.
+
+  - Quick sort, a Divide-and-Conquer algorithm, picks an element from the array (the pivot) and partitions the other elements into two 
+    sub-arrays wether they are less than or greater than the pivot. Although there are different ways to pick one, this implementation 
+    selects the median of the array as pivot. The resulting arrays are then sorted recursively by comparison, placing the smaller elements
+    before the pivot, and the larger elements after it.
+
+We implemented both algorithms and tested them with several samples each, 
+the insertion sort algorithm was tested with a randomly generated array, with and array sroted in ascending order and other sorted in descending order
+on the other hand, the quicksort was tested with three similar arrays, but with three different thresholds: one, ten and a hundred.
+Once we made sure they worked properly our objective was to measure their efficency and analyze their complexity and compare them to see which one is faster.
+
+First, the algorithms are tested to ensure its correct operation:
+
+##################################INSERTION SORT##################################
+
+Random initialization:
+[   3   0   3   7  14  -9  11   4  11   4   5 -12  20   9   6  17  15   4  15  -6 ]
+Sorted? No
+Sorting...
+[ -12  -9  -6   0   3   3   4   4   4   5   6   7   9  11  11  14  15  15  17  20 ]
+Sorted? Yes
+
+Descending initialization:
+[  19  18  17  16  15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0 ]
+Sorted? No
+Sorting...
+[   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 ]
+Sorted? Yes
+
+Ascending initialization:
+[   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 ]
+Sorted? Yes
+Sorting...
+[   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 ]
+Sorted? Yes
+
+#####################################QUICKSORT#####################################
+
+Random initialization:
+[  -4  -4 -18  -2  18 -15  19  19  -2   1  -8   8 -16  -5  14  17 -20  -9 -11 -20 ]
+Sorted? No
+Sorting...
+[ -20 -20 -18 -16 -15 -11  -9  -8  -5  -4  -4  -2  -2   1   8  14  17  18  19  19 ]
+Sorted? Yes
+
+Descending initialization:
+[  19  18  17  16  15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0 ]
+Sorted? No
+Sorting...
+[   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 ]
+Sorted? Yes
+
+Ascending initialization:
+[   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 ]
+Sorted? Yes
+Sorting...
+[   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 ]
+Sorted? Yes
+
+
+
+We have run the algorithms with random vectors of different sizes (500, 1000, 2000, 4000, 8000, 16000, 32000)
+following a geometric progression (*2), and in case of the quicksort algorithm with different threholds (1, 10, 100).
+We got the execution time through a function after which we performed an empirical verification of the complexity of the algorithms.
+
+All the times are measured in microseconds (ms).
+
+The executions times were calculated in a computer of the following characteristics:
+
+    Os: Zorin OS 16 x86_64
+    CPU: Intel i5-10400F (12) @ 4.300GHz
+    Memory: 15946MiB
+
+----------------------------INSERTION SORT-------------------------------------
+
+################################################################################
+
+Execution times with different values of n and a ascending array:
+      n              t(n)        t(n)/n^1.8        t(n)/n^2.0        t(n)/n^2.2
+*   500           243.060          0.004597          0.001327          0.000383
+   1000           895.000          0.005033          0.001264          0.000318
+   2000          3103.000          0.005188        - 0.001134 -        0.000248
+   4000         13144.000          0.006533          0.001244          0.000237
+   8000         55737.000          0.008236        - 0.001365 -        0.000226
+  16000        191714.000          0.008423          0.001215          0.000175
+  32000        761733.000          0.009949          0.001250          0.000157
+
+################################################################################
+
+n^1.8: underestimated bound
+n^2.0: tight bound
+n^2.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.001300 and 0.001100.
+
+- The values deviate slighty in two occasions but they are despicable because of their size.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^2.0.
+
+################################################################################
+
+Execution times with different values of n and a random array:
+      n              t(n)        t(n)/n^0.7        t(n)/n^0.9        t(n)/n^1.0
+*   500             2.000          0.025808        - 0.007447 -        0.002149
+*  1000             6.680          0.053061          0.013328        - 0.003348 -
+*  2000            11.210          0.054813        - 0.011986 -      - 0.002621 -
+*  4000            23.460          0.070613          0.013442        - 0.002559 -
+*  8000            46.290          0.085768          0.014214        - 0.002356 -
+* 16000            88.700          0.101167          0.014595          0.002106
+* 32000           159.780          0.112181          0.014089          0.001770 
+
+
+################################################################################
+
+n^0.7: underestimated bound
+n^0.9: tight bound
+n^1.0: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity.
+
+- For the overestimated bound we chose 1.0 instead of something bigger to demostatre that while it is extremely close to the tight bound and doesn't behave as and overestimated bound
+we couldn't choose it as the tight bound because it is not stable enough and usually tends to grow.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.013500 and 0.014500.
+
+- Of all tables we reviewed this one is the best to see how slowly the value tends to a constant even if it is unstable in the beggining,
+we atribute that behaviour to the fact that the values are extremly small.
+
+- The algorithm follows a linear growth, and its computational complexity is n^0.9.
+
+################################################################################
+
+Execution times with different values of n and a descending array:
+     n              t(n)        t(n)/n^1.7        t(n)/n^1.9        t(n)/n^2.1
+   500           714.000          0.018427          0.005317          0.001534
+  1000          2772.000          0.022019          0.005531          0.001389
+  2000          8993.000          0.021986          0.004808          0.001051
+  4000         30086.000          0.022639          0.004310          0.000820
+  8000        106955.000          0.024771          0.004105          0.000680
+ 16000        433166.000          0.030878          0.004455          0.000643
+ 32000       1624274.000          0.035637          0.004476          0.000562
+
+
+################################################################################
+
+n^1.7: underestimated bound
+n^1.9: tight bound
+n^2.0: overestimated bound
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.005 and 0.004.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^1.9.
+
+-------------------------------QUICKSORT----------------------------------------
+
+-----------------------------THRESHOLD-[1]--------------------------------------
+
+################################################################################
+
+Execution times with different values of n and a random array and a threshold of 1:
+      n              t(n)        t(n)/n^1.0        t(n)/n^1.1        t(n)/n^1.2
+*   500            48.810          0.097620          0.052437          0.028167
+*  1000            88.040          0.088040          0.044125          0.022115
+*  2000           205.060          0.102530          0.047946          0.022420
+   4000           533.000          0.133250        - 0.058138 -        0.025366
+   8000          1131.000          0.141375        - 0.057552 -        0.023429
+  16000          1912.000          0.119500          0.045390          0.017240
+  32000          4098.000          0.128062          0.045384          0.016084
+
+################################################################################
+
+n^1.0: underestimated bound
+n^1.1: tight bound
+n^1.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- We chose 1.0 as the underestimated bound to demostrate that because it is constantly growing we couldn't use as a tight bound.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.044 and 0.050.
+
+- There are a couple of anomalous values but after review a huge number of tables we belived this is the table that better represents the tendency toward a constant value despite its deviations.
+
+- The algorithm follows a linear growth, and its computational complexity is n^1.1.
+
+
+################################################################################
+
+Execution times with different values of n and a ascending array and a threshold of 1:
+      n              t(n)        t(n)/n^0.8        t(n)/n^1.0        t(n)/n^1.2
+*   500            24.170          0.167533          0.048340          0.013948
+*  1000            57.760          0.229947          0.057760        - 0.014509 -
+*  2000            96.670          0.221038        - 0.048335 -        0.010570
+*  4000           192.780          0.253171        - 0.048195 -        0.009175
+   8000           513.000          0.386942          0.064125        - 0.010627 -
+  16000          1100.000          0.476537          0.068750          0.009919
+  32000          2202.000          0.547895          0.068812          0.008642
+
+################################################################################
+
+n^0.8: underestimated bound
+n^1.0: tight bound
+n^1.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.064 and 0.070.
+
+- There are a couple of anomalous values but after review a huge number of tables we belived this is the table that better represents the tendency toward a constant value despite its deviations.
+
+- The algorithm follows a linear growth, and its computational complexity is n^1.0.
+
+################################################################################
+
+Execution times with different values of n and a decending array and a threshold of 1:
+      n              t(n)        t(n)/n^1.6        t(n)/n^1.8          t(n)/n^2
+*   500            93.300          0.004483          0.001293          0.000373
+*  1000           382.710          0.006066          0.001524          0.000383
+   2000          1569.000          0.008203          0.001794          0.000392
+   4000          5047.000          0.008704          0.001657          0.000315
+   8000         23042.000          0.013109          0.002172          0.000360
+  16000         87859.000          0.016489          0.002379          0.000343
+  32000        301296.000          0.018653          0.002343          0.000294
+
+################################################################################
+
+n^1.6: underestimated bound
+n^1.8: tight bound
+n^2.0: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- We chose 2.0 as the overestimated bound to demostrate that because it is constantly decresing we couldn't use as a tight bound.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.021 and 0.024.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^1.8.
+
+-----------------------------THRESHOLD-[10]-------------------------------------
+
+################################################################################
+
+Execution times with different values of n and a random array and a threshold of 10:
+      n              t(n)        t(n)/n^1.0        t(n)/n^1.1        t(n)/n^1.2
+*   500            85.400          0.317969        - 0.091747 -        0.026473
+*  1000           138.740          0.276823          0.069535          0.017466
+*  2000           263.870          0.282139        - 0.061696 -        0.013491
+   4000           574.000          0.328895        - 0.062610 -        0.011919
+   8000          1328.000          0.407772          0.067577          0.011199
+  16000          2964.000          0.487720          0.070363          0.010151
+  32000          6334.000          0.558526          0.070148          0.008810
+
+################################################################################
+
+n^1.0: underestimated bound
+n^1.1: tight bound
+n^1.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- We chose 1.0 as the underestimated bound to demostrate that because it is constantly growing we couldn't use as a tight bound.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.067 and 0.071.
+
+- There are a couple of anomalous values but after review a huge number of tables we belived this is the table that better represents the tendency toward a constant value despite its deviations.
+
+- The algorithm follows a linear growth, and its computational complexity is n^1.1.
+
+################################################################################
+
+Execution times with different values of n and a ascending array and a threshold of 10:
+      n              t(n)        t(n)/n^0.8        t(n)/n^1.0        t(n)/n^1.2
+*   500            16.200          0.112289          0.032400          0.009349
+*  1000            36.820          0.146583          0.036820          0.009249
+*  2000            74.320          0.169935          0.037160          0.008126
+*  4000           136.590          0.179379          0.034148          0.006501
+*  8000           258.540          0.195009          0.032318          0.005356
+  16000           721.000          0.312348          0.045062          0.006501
+  32000          1455.000          0.362029          0.045469          0.005711
+
+################################################################################
+
+n^0.8: underestimated bound
+n^1.0: tight bound
+n^1.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.032 and 0.045.
+
+- The algorithm follows a linear growth, and its computational complexity is n^1.0.
+
+################################################################################
+
+Execution times with different values of n and a descending array and a threshold of 10:
+      n              t(n)        t(n)/n^1.6        t(n)/n^1.8        t(n)/n^2.0
+*   500           204.440          0.009822          0.002834          0.000818
+*  1000           389.310          0.006170        - 0.001550 -        0.000389
+   2000          1716.000          0.008972        - 0.001962 -        0.000429
+   4000          7214.000          0.012442          0.002368          0.000451
+   8000         25224.000          0.014351          0.002378          0.000394
+  16000         86215.000          0.016180          0.002334          0.000337
+  32000        304945.000          0.018879          0.002371          0.000298
+
+################################################################################
+
+n^1.6: underestimated bound
+n^1.8: tight bound
+n^2.0: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- We chose 2.0 as the overestimated bound to demostrate that because it is constantly decreasig we couldn't use as a tight bound.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.023 and 0.029.
+
+- The values deviate slighty in two occasions but they are despicable because of their size.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^1.8.
+
+-----------------------------THRESHOLD-[100]------------------------------------
+
+################################################################################
+
+Execution times with different values of n and a random array and a threshold of 100:
+      n              t(n)        t(n)/n^1.0        t(n)/n^1.1        t(n)/n^1.2
+*   500            57.530          0.214201          0.061806          0.017833
+*  1000           133.560          0.266487          0.066939          0.016814
+*  2000           285.640          0.305416          0.066786          0.014604
+   4000           632.000          0.362129          0.068937          0.013123
+   8000          1344.000          0.412685          0.068391          0.011334
+  16000          2137.000          0.351639        - 0.050731 -        0.007319
+  32000          4561.000          0.402184        - 0.050512 -        0.006344
+
+################################################################################
+
+n^1.0: underestimated bound
+n^1.1: tight bound
+n^1.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- We chose 1.0 as the underestimated bound to demostrate that because it is constantly growing we couldn't use as a tight bound.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.07 and 0.05.
+
+- There are a couple of anomalous values but after review a huge number of tables we belived this is the table that better represents the tendency toward a constant value despite its deviations.
+
+- The algorithm follows a linear growth, and its computational complexity is n^1.1.
+
+################################################################################
+
+Execution times with different values of n and a ascending array and a threshold of 100:
+      n              t(n)        t(n)/n^0.8        t(n)/n^1.0        t(n)/n^1.2
+*   500             9.090          0.063007        - 0.018180 -        0.005246
+*  1000            17.350          0.069072        - 0.017350 -        0.004358
+*  2000            50.720          0.115973          0.025360          0.005546
+*  4000           103.510          0.135936          0.025878          0.004926
+*  8000           228.080          0.172034          0.028510          0.004725
+* 16000           454.140          0.196740          0.028384          0.004095
+  32000           955.000          0.237620          0.029844          0.003748
+
+################################################################################
+
+n^0.8: underestimated bound
+n^1.0: tight bound
+n^1.2: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.025 and 0.030.
+
+- There are a couple of anomalous values but after review a huge number of tables we belived this is the table that better represents the tendency toward a constant value despite its deviations.
+
+- The algorithm follows a linear growth, and its computational complexity is n^1.0.
+
+################################################################################
+
+Execution times with different values of n and a descending array and a threshold of 100:
+      n              t(n)        t(n)/n^1.6        t(n)/n^1.8        t(n)/n^2.0
+*   500           132.140          0.006349          0.001832          0.000529
+   1000           646.000          0.010238          0.002572          0.000646
+   2000          1831.000          0.009573          0.002093          0.000458
+   4000          6051.000          0.010436          0.001987          0.000378
+   8000         26254.000          0.014937          0.002475          0.000410
+  16000         88489.000          0.016607          0.002396          0.000346
+  32000        307186.000          0.019018          0.002389          0.000300
+
+################################################################################
+
+n^1.6: underestimated bound
+n^1.8: tight bound
+n^2.0: overestimated bound
+
+* When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant enough.
+  To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee that it is a reliable result.
+  This incident will be marked with an asterisk.
+
+After running the program we can observe the following...
+
+- The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
+  while the overestimated bound is constantly decreasing, therefore it tends to zero.
+
+- We chose 2.0 as the overestimated bound to demostrate that because it is constantly decresing we couldn't use as a tight bound.
+
+- The tight bound tends to a constant contained in an interval we estimate is located between 0.0018 and 0.0025.
+
+- The algorithm follows a quadratic growth, and its computational complexity is n^1.8.
+
+
+THRESHOLDS
+  
+  - Due to the nature of the quicksort algorithm, the smaller the array, the less efficient it is, as we can see when the
+    threshold is of value 1. As it grows, and the insertion sort is given the opportunity to rapidly sort the smaller arrays,
+    we can see the improvement in performance of both algorithms working together, giving the best performance when the threshold
+    is given a value of 100. Nevertheless, if the threshold is given a bigger value, the process could become slower, as the
+    insertion sort attemps to sort an array too large to be able to perform efficiently.
+
+
+CONCLUSION:
+ - Although the quicksort algorithm is generally faster and more efficient than the insertion sort, the latter 
+   can outperform it when it comes to smaller arrays, with fewer elements, due to its non-recursive sorting.
+
+ - Because of this, a hybrid implementation of these algorithms is the best way to approach a sorting task, 
+   initially sorting the larger array with the quicksort and using the simpler insertion sort when the divided
+   array is small enough to ensure an efficient implementation.
+
+
+
