@@ -1,38 +1,62 @@
-#define MAX_SIZE 1600 
+#include <stdlib.h>
+#include <malloc.h>
 
-typedef int ** matrix; 
-typedef struct { 
-    int x, y, weight; 
-} edge; 
-    
-typedef edge element_type; 
-typedef struct { 
-    int front_index, rear_index, size; 
-    element_type vector[MAX_SIZE]; 
-} queue; 
-void create_queue(queue *);
-int empty_queue(queue); 
-void enqueue(element_type, queue *); 
-element_type dequeue(queue *); 
-element_type front(queue); 
-void show_queue(queue); 
+#include "queue.h"
+
+// TODO(roi) implementar el main y acoplar las funciones del pdf, revisar
+
+int main()
+{
+
+}
 
 void prim(matrix m, int nodes, queue *edges) 
-/* calculate the minimum spanning tree returning 
-   the edges of the tree in the ’edges’ queue */
 { 
-    int min, i, j, k=0; 
+    int min, i, j, k = 0; 
     edge a; 
     int *closest = (int *) malloc(nodes*sizeof(int)); 
     int *minDistance = (int *) malloc(nodes*sizeof(int)); 
+
     create_queue(edges); 
     minDistance[0] = -1; 
-    for(i = 1; i < nodes; i++) { 
-        closest[i] = 0; minDistance[i] = m[i][0]; 
-    } 
-    /* 
-    ... 
-    */ 
+    
+    for (i = 1; i < nodes; i++) 
+    { 
+        closest[i] = 0; 
+        minDistance[i] = m[i][0]; 
+    }
+
+    for (i = 0; i < nodes -1; i++) 
+    {
+        min = 99;
+
+        for (j = 1; j < nodes; j++) 
+        {
+            if ((0 <= minDistance[j]) && (minDistance[j] < min))
+            {
+                min = minDistance[j];
+                k = j;
+            }
+        }
+
+        // set edge data and enqueue
+        a.x = closest[k];
+        a.y = k;
+        a.weight = min;
+
+        enqueue(a, edges);
+        minDistance[k] = -1;
+
+        for (j = 1; j < nodes; j++)
+        {
+            if (m[j][k] < minDistance[j])
+            {
+                minDistance[j]= m[j][k];
+                closest[j] = k;
+            }
+        }
+    }
+
     free(closest); 
     free(minDistance);
 }
