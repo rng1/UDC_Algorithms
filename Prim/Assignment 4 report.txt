@@ -5,15 +5,15 @@ Author 1: Martin do Rio Rico          | Login 1: martin.dorio
 Author 2: Rodrigo Naranjo Gonzalez    | Login 2: r.naranjo
 Author 3: Guillermo Fernandez Sanchez | Login 1: guillermo.fernandezs
 
-The Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. 
+Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. 
 This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight 
 of all the edges in the tree is minimized. 
 The algorithm operates by building this tree one vertex at a time, from an arbitrary starting vertex, at each 
 step adding the cheapest possible connection from the tree to another vertex.
 
 
-We implemented the algorithms and tested it with three sample matrix, each one with different complexity and
-size, before measuring the algorithms are tested against this samples to ensure its correct operation:
+We implemented the algorithm and tested it with three sample matrices, each one with different complexity and
+size, before measuring the algorithms are tested against these samples to ensure its correct operation:
 
 ############################################################################################################
 
@@ -57,11 +57,11 @@ Weight: 39
 
 ##############################################################################################################
 
-We have run the algorithms with random vectors of different sizes (10, 20, 40, 80, 160, 320), this time smaller
-values, yet following a geometric progression (*2), because when using or last values, much higher, the results
-became unstable and unpredictable.
+We have run the algorithms with graphs of different number of nodes (10, 20, 40, 80, 160, 320), compared 
+with other projects, the values seem, yet follow a geometric progression (*2), because when using or last 
+values,  much higher, the results became unstable and unpredictable.
 We got the execution time through a function after which we performed an empirical verification of the complexity 
-of the algorithms.
+of the algorithm.
 
 All the times are measured in microseconds (ms).
 
@@ -73,7 +73,7 @@ The executions times were calculated in a computer of the following characterist
 
 ##############################################################################################################
 
-Execution times of the Prim's algorithm
+Execution times of the Prim's algorithm for a graph of n nodes
 
       n              t(n)        t(n)/n^1.6        t(n)/n^1.8        t(n)/n^2.0
 *    10             1.020          0.025621          0.016166          0.010200
@@ -88,8 +88,8 @@ n^1.8: tight bound
 n^2.0: overestimated bound
 
 * When the execution time measured is smaller than 500 microseconds we consider that the figure is not significant 
-enough. To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee 
-that it is a reliable result.
+  enough. To solve this we run the algorithm 1000 times and then using the execution time obtained we can guarantee 
+  that it is a reliable result.
   This incident will be marked with an asterisk.
 
 After running the program we can observe the following...
@@ -97,16 +97,19 @@ After running the program we can observe the following...
 - The underestimated bound is constantly growing as we increase 'n' so we can deduce it tends to infinity,
   while the overestimated bound is constantly decreasing, therefore it tends to zero.
 
-- We can clearly see that despite being close to a perfect cuadratic growth, when its complexity is n^2.0
+- We can see that despite being close to a perfect quadratic growth when its complexity is n^2.0
   it is overestimated, as it decreases.
 
-- The tight bound tends to a constant contained in an interval we estimate is located between 0.0160 and 0.0168.
+- The tight bound tends to be a constant contained in an interval we estimate is located between 0.0160 and 0.0168.
 
-- The values deviate slighty but remain somewhat constant, so we consider that irregularity nor relevant enough.
+- The values deviate slightly but remain somewhat constant, so we consider that irregularity not relevant enough.
 
 - The algorithm follows a quadratic growth, and its computational complexity is n^1.8.
 
 ##############################################################################################################
 
 CONCLUSION:
-
+The algorithm always search for the "cheapest" way to travel through the graph and while in a manageable range of
+nodes its computational complexity is quadratic.
+After running the program we can observe that the greater the number of nodes the more difficult is to find values
+following a pattern, thus they become erratic.
