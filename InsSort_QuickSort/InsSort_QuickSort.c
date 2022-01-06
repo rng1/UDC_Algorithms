@@ -351,12 +351,14 @@ void sort_aux(int v[], int left, int right)
 
         while (j > i)
         {
+            // a lo mejor falla, si no cambiar los do-while a while
             do
                 i++;
             while (v[i] < pivot);
 
-            while (v[j] > pivot)
+            do
                 j--;
+            while (v[j] > pivot);
 
             swap(&v[i], &v[j]);
         }
